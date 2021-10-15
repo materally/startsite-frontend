@@ -1,0 +1,42 @@
+{
+  "explorer.confirmDragAndDrop": false,
+  "git.confirmSync": false,
+  "window.zoomLevel": 0,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "explorer.confirmDelete": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.largeFileOptimizations": false,
+  "editor.rulers": [80],
+  "eslint.format.enable": true,
+  "eslint.runtime": "",
+  "eslint.workingDirectories": [],
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "files.associations": {
+    "*.svg": "html"
+  },
+  "redhat.telemetry.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
