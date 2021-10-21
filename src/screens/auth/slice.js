@@ -1,25 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { loadState } from "../../app/utils/localStorage";
 
 const initialState = {
-  user: loadState("user"),
-  api_token: loadState("api_token"),
+  currentUser: loadState("currentUser"),
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setApiToken: (state, action) => {
-      state.api_token = action.payload;
-    },
-    setUser: (state, action) => {
-      state.user = action.payload;
+    setCurrentUser: (state, action) => {
+      state.currentUser = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setApiToken, setUser } = authSlice.actions;
+export const { setCurrentUser } = authSlice.actions;
 
 export default authSlice.reducer;

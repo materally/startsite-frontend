@@ -1,22 +1,14 @@
 import { useState, useCallback } from "react";
-import { Route, Redirect } from "react-router";
-import { useHistory } from "react-router-dom";
-
-import {
-  AppProvider,
-  ActionList,
-  Avatar,
-  Frame,
-  Icon,
-  TopBar,
-  VisuallyHidden,
-} from "@shopify/polaris";
-import { ArrowLeftMinor, CustomersMajor } from "@shopify/polaris-icons";
-
-import { loadState } from "../app/utils/localStorage";
+import { useSelector, useDispatch } from "react-redux";
+import { Icon, TopBar, VisuallyHidden } from "@shopify/polaris";
+import { ExitMajor, CustomersMajor } from "@shopify/polaris-icons";
+import { textToAvatar } from "../app/utils/textToAvatar";
+import { setCurrentUser } from "../screens/auth/slice";
+import { removeState } from "../app/utils/localStorage";
 
 export default function Navbar() {
-  const token = loadState("api_token");
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.auth);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isSecondaryMenuOpen, setIsSecondaryMenuOpen] = useState(false);
 
@@ -34,30 +26,32 @@ export default function Navbar() {
     console.log("toggle navigation visibility");
   }, []);
 
+  const logout = () => {
+    dispatch(setCurrentUser({}));
+    removeState("currentUser");
+    window.location.href = "/login";
+  };
+
   const userMenuMarkup = (
     <TopBar.UserMenu
       actions={[
         {
           items: [
             {
-              content: "Back to Shopify",
-              icon: ArrowLeftMinor,
-              onAction: () => alert("asd"),
+              content: "Kijelentkezés",
+              icon: ExitMajor,
+              onAction: logout,
             },
           ],
         },
-        {
-          items: [{ content: "Community forums" }],
-        },
       ]}
-      name="User"
-      detail="Kulcsár Máté"
-      initials="KM"
+      name={currentUser && currentUser?.displayName}
+      detail={currentUser && currentUser?.email}
+      initials={currentUser && textToAvatar(currentUser?.displayName, 2)}
       open={isUserMenuOpen}
       onToggle={toggleIsUserMenuOpen}
     />
   );
-  const history = useHistory();
 
   const secondaryMenuMarkup = (
     <TopBar.Menu
@@ -90,8 +84,8 @@ export default function Navbar() {
   return (
     <TopBar
       showNavigationToggle
-      userMenu={token && userMenuMarkup}
-      secondaryMenu={!token && secondaryMenuMarkup}
+      userMenu={currentUser && userMenuMarkup}
+      secondaryMenu={!currentUser && secondaryMenuMarkup}
       onNavigationToggle={handleNavigationToggle}
     />
   );

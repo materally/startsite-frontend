@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 
 import "@shopify/polaris/build/esm/styles.css";
 
+import app from "./app/firebase";
+
 function App() {
   return (
     <AppProvider>

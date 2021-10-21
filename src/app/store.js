@@ -8,7 +8,8 @@ export const store = configureStore({
   reducer: {
     auth: authSlice,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 setupListeners(store.dispatch);
