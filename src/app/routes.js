@@ -4,6 +4,7 @@ import PublicRoute from "../components/PublicRoute";
 
 //
 import LoginForm from "../screens/auth/LoginForm";
+import Register from "../screens/auth/Register";
 
 // authenticated routes
 import Home from "../screens/home/Home";
@@ -18,6 +19,12 @@ const ROUTES = [
   {
     path: "/login",
     component: LoginForm,
+    exact: true,
+    isPublic: true,
+  },
+  {
+    path: "/register",
+    component: Register,
     exact: true,
     isPublic: true,
   },

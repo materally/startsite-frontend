@@ -13,13 +13,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-window.addEventListener(
-  "storage",
-  function (event) {
-    if (event.storageArea === localStorage) {
-      console.log(this.localStorage);
-    }
-  },
-  false
-);

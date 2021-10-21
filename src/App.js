@@ -1,11 +1,20 @@
 import { BrowserRouter as Router } from "react-router-dom";
+import { AppProvider, Frame } from "@shopify/polaris";
+
 import Routes from "./app/routes";
+import Navbar from "./components/Navbar";
+
+import "@shopify/polaris/build/esm/styles.css";
 
 function App() {
   return (
-    <Router>
-      <Routes />
-    </Router>
+    <AppProvider>
+      <Frame topBar={<Navbar />}>
+        <Router>
+          <Routes />
+        </Router>
+      </Frame>
+    </AppProvider>
   );
 }
 
