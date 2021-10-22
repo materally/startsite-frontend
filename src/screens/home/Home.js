@@ -1,9 +1,21 @@
-import { useSelector } from "react-redux";
+import { Page, Layout } from "@shopify/polaris";
+
+import Bookmark from "./components/Bookmark/Bookmark";
 
 function Home() {
-  const { currentUser } = useSelector((state) => state.auth);
-
-  return <div className="">HOME, hello {currentUser.displayName} - </div>;
+  return (
+    <Page fullWidth>
+      <Layout>
+        <Layout.Section oneHalf>
+          <Bookmark />
+        </Layout.Section>
+        <Layout.Section oneHalf>asd</Layout.Section>
+        <Layout.Section oneHalf>asd</Layout.Section>
+        <Layout.Section oneHalf>asd</Layout.Section>
+        <Layout.Section oneHalf>asd</Layout.Section>
+      </Layout>
+    </Page>
+  );
 }
 
 export default Home;

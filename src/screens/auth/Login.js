@@ -14,9 +14,8 @@ import {
 } from "@shopify/polaris";
 
 import { firebaseMessage } from "../../app/utils/firebaseMessages";
-
-import { setCurrentUser } from "./slice";
 import { saveState } from "../../app/utils/localStorage";
+import { setCurrentUser } from "./slice";
 
 function Login() {
   const history = useHistory();

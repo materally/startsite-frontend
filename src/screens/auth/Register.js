@@ -19,7 +19,6 @@ import {
 
 import { firebaseMessage } from "../../app/utils/firebaseMessages";
 import { saveState } from "../../app/utils/localStorage";
-
 import { setCurrentUser } from "./slice";
 
 function Register() {
