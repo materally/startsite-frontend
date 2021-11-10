@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-import { Modal, Stack, FormLayout, TextField, Banner } from "@shopify/polaris";
+import {
+  Modal,
+  Stack,
+  FormLayout,
+  TextField,
+  Banner,
+  Form,
+} from "@shopify/polaris";
 
 function BookmarkModal({ isOpen, onClose, getData }) {
   const db = getFirestore();
@@ -55,20 +62,23 @@ function BookmarkModal({ isOpen, onClose, getData }) {
         <Modal.Section>
           <Stack vertical>
             {error.length > 0 && <Banner title={error} status="critical" />}
-            <FormLayout>
-              <TextField
-                value={newData.title}
-                label="Megnevezés"
-                placeholder="pl. Heti menük"
-                onChange={(value) => setNewData({ ...newData, title: value })}
-              />
-              <TextField
-                value={newData.url}
-                label="Link"
-                placeholder="pl. https://menuzz.hu/city/Debrecen"
-                onChange={(value) => setNewData({ ...newData, url: value })}
-              />
-            </FormLayout>
+            <Form onSubmit={createBookmark}>
+              <FormLayout>
+                <TextField
+                  autoFocus
+                  value={newData.title}
+                  label="Megnevezés"
+                  placeholder="pl. Heti menük"
+                  onChange={(value) => setNewData({ ...newData, title: value })}
+                />
+                <TextField
+                  value={newData.url}
+                  label="Link"
+                  placeholder="pl. https://menuzz.hu/city/Debrecen"
+                  onChange={(value) => setNewData({ ...newData, url: value })}
+                />
+              </FormLayout>
+            </Form>
           </Stack>
         </Modal.Section>
       </Modal>

@@ -12,9 +12,9 @@ import {
 import { Card, ResourceList, TextStyle } from "@shopify/polaris";
 import { DeleteMajor } from "@shopify/polaris-icons";
 
-import BookmarkModal from "./Modal";
+//import BookmarkModal from "./Modal";
 
-function Bookmark() {
+function Note() {
   const db = getFirestore();
   const { currentUser } = useSelector((state) => state.auth);
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +24,7 @@ function Bookmark() {
   const getData = async () => {
     setIsLoading(true);
     const q = query(
-      collection(db, "bookmark"),
+      collection(db, "note"),
       where("uid", "==", currentUser.uid)
     );
     const querySnapshot = await getDocs(q);
@@ -45,9 +45,9 @@ function Bookmark() {
     getData();
   }, []);
 
-  const deleteBookmark = async (id) => {
+  const deleteNote = async (id) => {
     setIsLoading(true);
-    await deleteDoc(doc(db, "bookmark", id)).then((res) => {
+    await deleteDoc(doc(db, "note", id)).then((res) => {
       getData();
     });
   };
@@ -55,9 +55,9 @@ function Bookmark() {
   return (
     <>
       <Card
-        title="Könyvjelzők"
+        title="Jegyzetek"
         actions={[
-          { content: "+ Új könyvjelző", onAction: () => setShowModal(true) },
+          { content: "+ Új jegyzet", onAction: () => setShowModal(true) },
         ]}
       >
         <Card.Section>
@@ -65,7 +65,7 @@ function Bookmark() {
             loading={isLoading}
             resourceName={{ singular: "product", plural: "products" }}
             items={data}
-            emptyState="Nincs még könyvjelződ!"
+            emptyState="Nincs még jegyzet!"
             renderItem={(item) => {
               const { id, title, url } = item;
 
@@ -75,8 +75,7 @@ function Bookmark() {
                     {
                       icon: DeleteMajor,
                       onAction: () =>
-                        window.confirm("Biztosan törlöd?") &&
-                        deleteBookmark(id),
+                        window.confirm("Biztosan törlöd?") && deleteNote(id),
                       destructive: true,
                     },
                   ]}
@@ -94,13 +93,13 @@ function Bookmark() {
           />
         </Card.Section>
       </Card>
-      <BookmarkModal
+      {/* <BookmarkModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         getData={() => getData()}
-      />
+      /> */}
     </>
   );
 }
 
-export default Bookmark;
+export default Note;
