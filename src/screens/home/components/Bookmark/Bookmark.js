@@ -13,6 +13,7 @@ import { Card, ResourceList, TextStyle } from "@shopify/polaris";
 import { DeleteMajor } from "@shopify/polaris-icons";
 
 import BookmarkModal from "./Modal";
+import { stringSlice } from "../../../../app/utils/stringSlice";
 
 function Bookmark() {
   const db = getFirestore();
@@ -87,7 +88,7 @@ function Bookmark() {
                   <h3>
                     <TextStyle variation="strong">{title}</TextStyle>
                   </h3>
-                  <div>{url}</div>
+                  <div>{stringSlice(url, 100)}</div>
                 </ResourceList.Item>
               );
             }}

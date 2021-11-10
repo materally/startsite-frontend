@@ -6,13 +6,11 @@ import {
   query,
   getFirestore,
   getDocs,
-  deleteDoc,
-  doc,
 } from "firebase/firestore";
-import { Card, ResourceList, TextStyle } from "@shopify/polaris";
-import { DeleteMajor } from "@shopify/polaris-icons";
+import { Card, ResourceList } from "@shopify/polaris";
 
-//import BookmarkModal from "./Modal";
+import { stringSlice } from "../../../../app/utils/stringSlice";
+import NoteModal from "./Modal";
 
 function Note() {
   const db = getFirestore();
@@ -20,6 +18,8 @@ function Note() {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedNote, setSelectedNote] = useState("");
+  const [selectedNoteId, setSelectedNoteId] = useState(-1);
 
   const getData = async () => {
     setIsLoading(true);
@@ -32,8 +32,7 @@ function Note() {
     querySnapshot.forEach((doc) => {
       const newData = {
         id: doc.id,
-        title: doc.data().title,
-        url: doc.data().url,
+        note: doc.data().note,
       };
       temp.push(newData);
     });
@@ -45,19 +44,19 @@ function Note() {
     getData();
   }, []);
 
-  const deleteNote = async (id) => {
-    setIsLoading(true);
-    await deleteDoc(doc(db, "note", id)).then((res) => {
-      getData();
-    });
-  };
-
   return (
     <>
       <Card
         title="Jegyzetek"
         actions={[
-          { content: "+ Új jegyzet", onAction: () => setShowModal(true) },
+          {
+            content: "+ Új jegyzet",
+            onAction: () => {
+              setSelectedNote("");
+              setSelectedNoteId(-1);
+              setShowModal(true);
+            },
+          },
         ]}
       >
         <Card.Section>
@@ -67,37 +66,34 @@ function Note() {
             items={data}
             emptyState="Nincs még jegyzet!"
             renderItem={(item) => {
-              const { id, title, url } = item;
+              const { id, note } = item;
 
               return (
                 <ResourceList.Item
-                  shortcutActions={[
-                    {
-                      icon: DeleteMajor,
-                      onAction: () =>
-                        window.confirm("Biztosan törlöd?") && deleteNote(id),
-                      destructive: true,
-                    },
-                  ]}
                   onClick={() => {
-                    window.open(url);
+                    setSelectedNote(note);
+                    setSelectedNoteId(id);
+                    setShowModal(true);
                   }}
                 >
-                  <h3>
-                    <TextStyle variation="strong">{title}</TextStyle>
-                  </h3>
-                  <div>{url}</div>
+                  {stringSlice(note, 200)}
                 </ResourceList.Item>
               );
             }}
           />
         </Card.Section>
       </Card>
-      {/* <BookmarkModal
+      <NoteModal
         isOpen={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          setSelectedNoteId(-1);
+          setSelectedNote("");
+        }}
         getData={() => getData()}
-      /> */}
+        note={selectedNote}
+        id={selectedNoteId}
+      />
     </>
   );
 }

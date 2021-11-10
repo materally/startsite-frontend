@@ -19,6 +19,7 @@ function BookmarkModal({ isOpen, onClose, getData }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const createBookmark = async () => {
+    setError("");
     if (newData.title.trim() === "" || newData.url.trim() === "") {
       setError("Minden mező kitöltése kötelező!");
       return;
