@@ -13,7 +13,6 @@ function Home() {
         <Layout.Section oneHalf>
           <Note />
         </Layout.Section>
-        <Layout.Section oneHalf>todo..</Layout.Section>
       </Layout>
     </Page>
   );
