@@ -6,9 +6,10 @@ export function firebaseMessage(id) {
     "auth/internal-error": "Szerver hiba!",
     "auth/user-not-found": "Nincs ilyen felhasználó!",
   };
+
   if (params[id]) {
     return params[id];
-  } else {
-    return "Hiba történt! Hibakód: " + id;
   }
+
+  return "Hiba történt! Hibakód: " + id;
 }
